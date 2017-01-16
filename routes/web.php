@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'FirstController@home');
+
+Route::get('/add_data', 'FirstController@add_data_page');
+
+
+Route::post('/add_data', 'TasksController@store');

@@ -19,6 +19,7 @@
 
                 <ul class="">
                     <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="/seeTasks" class="nav-link">See Tasks</a></li>
                     <li class="nav-item"><a href="add_data" class="nav-link">Add Data</a></li>
                 </ul> 
             </nav>

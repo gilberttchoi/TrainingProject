@@ -15,5 +15,6 @@ Route::get('/', 'FirstController@home');
 
 Route::get('/add_data', 'FirstController@add_data_page');
 
+Route::get('/seeTasks', 'TasksController@index');
 
-Route::post('/add_data', 'TasksController@store');
+Route::post('/seeTasks', 'TasksController@store');

@@ -12,16 +12,12 @@
 
 	<div class="form-group">	
 		Task title
-		<text name="title" class="form-control">
-
-		</textarea>
+		<input type="text" name="title" class="form-control"></input>
 	</div>
 
 	<div class="form-group">	
 		Deadline
-		<date name="deadline" class="form-control">
-
-		</date>
+		<input type="date" name="deadline" class="form-control">	</input>
 	</div>
 
 	<div class="form-group">	

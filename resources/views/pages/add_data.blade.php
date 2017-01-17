@@ -7,10 +7,10 @@
 @section('content') 
 
 <h3>Add a task with this form</h3>
-<form method="POST" action="/add_data/dataAdder" >
-
-
+<form method="POST" action="/seeTasks" >
 	<div class="form-group">	
+		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+
 		Task title
 		<input type="text" name="title" class="form-control"></input>
 	</div>

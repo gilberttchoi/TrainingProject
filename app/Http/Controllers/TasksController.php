@@ -3,13 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Task;
 
 class TasksController extends Controller
 {
     public function store(Request $request)
     {
-    	return $request;	
+    	$task = new Task;
+        $task->task_name = $request->title;
+        $task->deadline = $request->deadline ;
+        $task->task_detail = $request->body ;
+
+        $task->save();
+
     }
 
     public function show(Request $request)
@@ -20,7 +26,7 @@ class TasksController extends Controller
     public function index()
     {	
 
-    	$tasks = \DB::select('select * from tasks');
+    	$tasks = Task::all();
     	return view('pages.seeTasks', compact($tasks));
     }
 

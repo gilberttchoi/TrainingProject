@@ -13,8 +13,8 @@
 
 Route::get('/', 'FirstController@home');
 
-Route::get('/add_data', 'FirstController@add_data_page');
+Route::get('/addTask', 'FirstController@addTask');
 
 Route::get('/seeTasks', 'TasksController@index');
 
-Route::post('/seeTasks', 'TasksController@store');
+Route::post('/addTask/storeTask', 'TasksController@store');

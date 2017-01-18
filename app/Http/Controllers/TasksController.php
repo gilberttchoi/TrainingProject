@@ -10,24 +10,21 @@ class TasksController extends Controller
     public function store(Request $request)
     {
     	$task = new Task;
-        $task->task_name = $request->title;
-        $task->deadline = $request->deadline ;
-        $task->task_detail = $request->body ;
+        $task->title = $request->title;
+        $task->deadline = $request->deadline;
+        $task->detail = $request->detail;
 
         $task->save();
 
-    }
+        return redirect()->action('TasksController@index');
 
-    public function show(Request $request)
-    {
-    	return $request;
     }
 
     public function index()
     {	
-
-    	$tasks = Task::all();
-    	return view('pages.seeTasks', compact($tasks));
+    	$tasks = Task::all()->take(20);
+    	return view('pages.seeTasks', compact('tasks'));
     }
 
 }
+    

@@ -1,10 +1,12 @@
 @extends('pages\layout')
 
-@section('content')
-<ul>
-	<h1>All tasks</h1>
-	@foreach($tasks as task)
-		{{ $task->Task_Name }}
+@section('content')	
+<h1>All tasks</h1>
+<ul class="list-group">
+	@foreach($tasks as $task)
+
+		<li class="list-group-item">{{ $task }}</li>
+
 	@endforeach
 </ul>
 @stop

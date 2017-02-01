@@ -13,7 +13,7 @@
 
 Route::get('/', 'FirstController@home');
 
-Route::get('/addTask', 'FirstController@addTask');
+Route::get('/addTask', 'FirstController@create');
 
 Route::get('/seeTasks', 'TasksController@index');
 

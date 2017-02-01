@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Task;
 
 class TasksTableSeeder extends Seeder
 {
@@ -11,8 +12,8 @@ class TasksTableSeeder extends Seeder
      */
     public function run()
     {
-    	
-    	factory(App\Task::class, 50)->create();
+    	   
+    	factory(Task::class, 10)->create();
 
     }
 }

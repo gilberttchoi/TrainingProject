@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class FirstController extends Controller
 {
-    public function addTask() 
+    public function create() 
     {
 		return view('pages.addTask');
     }

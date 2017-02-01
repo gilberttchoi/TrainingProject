@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Label;
 
-class DatabaseSeeder extends Seeder
+class LabelsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(TasksTableSeeder::class);
-        $this->call(LabelsTableSeeder::class);
+        factory(Label::class, 10)->create();
     }
 }

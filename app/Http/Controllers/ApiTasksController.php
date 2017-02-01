@@ -48,12 +48,13 @@ class ApiTasksController extends ApiController
 	{
 		$task = Task::find($id);
 
-		if( ! $task){
+		if( ! $task ){
 			return $this->respondNotFound();
-		}
-
+		
+}
 		return $this->respond([
-			'data' => $this->taskTransformer->transformCollection([$task])
+			'data' => $this->taskTransformer
+							->transform($task)
 			]);
 	}	
 
@@ -67,9 +68,19 @@ class ApiTasksController extends ApiController
 		;
 	}
 
-	public function edit()
+	public function edit($id)
 	{
-		;
+		$task = Task::find($id); 
+
+		if( ! $task ){
+			return $this->respondNotFound;
+		}
+
+		return  $this->respond([
+				'data' => $this->taskTransformer
+								->transform($task)
+			]);
+
 	}
 
 

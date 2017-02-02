@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Task;
 use App\Transformers\TaskTransformer;
 use App\Transformers\Transformer;
+use Carbon\Carbon;
 
 class ApiTasksController extends ApiController
 {
@@ -50,17 +51,36 @@ class ApiTasksController extends ApiController
 
 		if( ! $task ){
 			return $this->respondNotFound();
-		
-}
+
+		}
 		return $this->respond([
 			'data' => $this->taskTransformer
-							->transform($task)
+			->transform($task)
 			]);
 	}	
 
-	public function update()
+	public function update($id, Request $request)
 	{
-		;
+		$task = Task::find($id); 
+
+		if( ! $task ){
+			return $this->respondNotFound();
+		}
+
+		if( ! $request->input('title') or ! $request->input('detail') or ! $request->input('deadline') ){
+			return $this->respondInvalidRequest('Parameters failed validation. Parameters could be missing.');
+		}
+
+		$task['title'] = $request->input('title');
+		$task['deadline'] = $request->input('deadline');
+		$task['detail'] = $request->input('detail');
+		$task['updated_at'] = Carbon::now('Europe/Paris');
+
+		return  $this->respond([
+			'data' => $this->taskTransformer
+			->transform($task)
+			]);
+
 	}
 
 	public function destroy()
@@ -68,19 +88,27 @@ class ApiTasksController extends ApiController
 		;
 	}
 
-	public function edit($id)
+	public function edit()
 	{
 		$task = Task::find($id); 
 
 		if( ! $task ){
-			return $this->respondNotFound;
+			return $this->respondNotFound();
 		}
 
-		return  $this->respond([
-				'data' => $this->taskTransformer
-								->transform($task)
-			]);
+		if( ! $request->input('title') and ! $request->input('detail') and ! $request->input('deadline') ){
+			return $this->respondInvalidRequest('Parameters failed validation.');
+		}
 
+		$task['title'] = $request->input('title');
+		$task['deadline'] = $request->input('deadline');
+		$task['detail'] = $request->input('detail');
+		$task['updated_at'] = Carbon::now('Europe/Paris');
+
+		return  $this->respond([
+			'data' => $this->taskTransformer
+			->transform($task)
+			]);
 	}
 
 

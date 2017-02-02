@@ -9,6 +9,19 @@ class TasksController extends Controller
 {
     public function store(Request $request)
     {
+        //Added some data validation
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'deadline' => 'required',
+            'detail' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
     	$task = new Task;
         $task->title = $request->title;
         $task->deadline = $request->deadline;

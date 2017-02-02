@@ -65,4 +65,11 @@ class ApiController extends Controller
     {
         return $this->setStatusCode(422)->respondWithError($message);
     }
+
+    public function respondDeleted($message)
+    {   
+        return $this->setStatusCode(202)->respond([
+                'message' => $message
+            ]);
+    }
 }

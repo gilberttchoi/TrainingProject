@@ -26,4 +26,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    // link users with tasks
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
 }

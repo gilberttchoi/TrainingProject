@@ -7,6 +7,7 @@ use App\Task;
 use App\Transformers\TaskTransformer;
 use App\Transformers\Transformer;
 use Carbon\Carbon;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ApiTasksController extends ApiController
 {
@@ -29,22 +30,6 @@ class ApiTasksController extends ApiController
 			]);
 	}
 
-	public function store(Request $request)
-	{
-		if( ! $request->input('title') or ! $request->input('detail') or ! $request->input('deadline') ){
-			return $this->respondInvalidRequest('Parameters failed validation.');
-		}
-
-		Task::create($request->input());
-
-		return $this->respondCreated('Task successfully created');
-	}
-
-	public function create()
-	{
-		;
-	}	
-
 	public function show($id)
 	{
 		$task = Task::find($id);
@@ -57,6 +42,7 @@ class ApiTasksController extends ApiController
 			'data' => $this->taskTransformer
 			->transform($task)
 			]);
+		//Maybe could be better to remove data encapsulation
 	}	
 
 	public function update($id, Request $request)
@@ -83,14 +69,40 @@ class ApiTasksController extends ApiController
 
 	}
 
-	public function destroy()
+	public function store(Request $request)
+	{
+		if( ! $request->input('title') or ! $request->input('detail') or ! $request->input('deadline') ){
+			return $this->respondInvalidRequest('Parameters failed validation.');
+		}
+
+		Task::create($request->input());
+
+		return $this->respondCreated('Task successfully created');
+	}
+
+	public function create()
 	{
 		;
 	}
 
-	public function edit()
+	public function destroy($id, Request $request)
+		{
+		$task = Task::find($id);  //could be nice to shorten using findOrFail($id)->delete(); and catch the exception
+
+		if( ! $task )
+		{
+			return $this->respondNotFound();
+		}
+
+		$task->delete();
+
+		return $this->respondDeleted('Task successfully deleted');
+	}
+
+	//Need to figure out what to do with this
+	public function edit($id, Request $request)
 	{
-		$task = Task::find($id); 
+		/*$task = Task::find($id); 
 
 		if( ! $task ){
 			return $this->respondNotFound();
@@ -100,15 +112,16 @@ class ApiTasksController extends ApiController
 			return $this->respondInvalidRequest('Parameters failed validation.');
 		}
 
-		($request->input('title')) ? $task['title'] = $request->input('title') : 0;
-		($request->input('deadline')) ? $task['deadline'] = $request->input('deadline') : 0;
+		($request->input('title')) ? $task['title'] = $request->input('title') : Null;
+		($request->input('deadline')) ? $task['deadline'] = $request->input('deadline') : Null;
 		($request->input('deadline')) ? $task['detail'] = $request->input('detail') : Null;
 		$task['updated_at'] = Carbon::now('Europe/Paris');
 
 		return  $this->respond([
 			'data' => $this->taskTransformer
 			->transform($task)
-			]);
+			])*/;
+
 	}
 
 
@@ -116,3 +129,4 @@ class ApiTasksController extends ApiController
 
 
 //TODO finish coding the other api methods
+//TODO create error codes (heritage) for auth and use auth for post method 

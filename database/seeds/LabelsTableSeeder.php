@@ -14,4 +14,9 @@ class LabelsTableSeeder extends Seeder
     {
         factory(Label::class, 10)->create();
     }
+
+    public function task()
+    {
+    	return $this->belongsTo(Task::class);
+    }
 }

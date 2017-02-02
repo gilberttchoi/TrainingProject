@@ -20,5 +20,6 @@ Route::get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1'], function(){
 	Route::resource('tasks','ApiTasksController');
 	Route::resource('labels','ApiLabelsController', ['only' => ['index','show'] ]);
+	/*Route::ressource('tasks.labels', 'ApiTasksLabelsController');*/
 });
 

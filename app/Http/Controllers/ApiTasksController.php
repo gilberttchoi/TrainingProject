@@ -100,9 +100,9 @@ class ApiTasksController extends ApiController
 			return $this->respondInvalidRequest('Parameters failed validation.');
 		}
 
-		$task['title'] = $request->input('title');
-		$task['deadline'] = $request->input('deadline');
-		$task['detail'] = $request->input('detail');
+		($request->input('title')) ? $task['title'] = $request->input('title') : 0;
+		($request->input('deadline')) ? $task['deadline'] = $request->input('deadline') : 0;
+		($request->input('deadline')) ? $task['detail'] = $request->input('detail') : Null;
 		$task['updated_at'] = Carbon::now('Europe/Paris');
 
 		return  $this->respond([
